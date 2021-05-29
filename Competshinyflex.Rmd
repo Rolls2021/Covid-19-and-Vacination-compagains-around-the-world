@@ -1,0 +1,129 @@
+---
+title: "Covid-19 and Vacination compagains around the world"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(flexdashboard)
+library(xts)
+library(dygraphs)
+library(plotly)
+library(shiny)
+##importing data##
+covid_19_data <- read_csv("covid-19-data.csv")
+Data_about_covid <- read_csv("Data_about_covid.csv")
+population<-read_csv("population.csv")    
+countriesbygroup<-read_csv("countriesbygroup.csv")
+confirmeddeath<-read_csv("confirmeddeath.csv")
+#####Cleaning Data####
+
+Covid_19<-confirmeddeath%>%
+  select(location,population,total_cases,total_deaths,total_vaccinations,new_cases ,new_deaths)%>%
+  transmute('Country Name'= location,'Population'=population, 'Cases'= total_cases, 'Deaths'=total_deaths,'vaccinations'=total_vaccinations, 'cases_after_vaccinations'=new_cases, 'deaths_after_vaccinations'= new_deaths )
+
+
+population19<-population%>%  # Population in 2019
+  mutate(Population=`2019`)%>%
+  select(`Country Name`,`Country Code`,Population)
+
+countriesbygroup<-countriesbygroup%>%
+  rename(`Country Name`=TableName)
+
+
+##########Merging tibbles#####
+df<-inner_join (inner_join(countriesbygroup,population19,by="Country Name"),Covid_19,by= "Country Name")
+###Elimination of duplicating colum###
+df<-df%>%
+      select(`Country Code.x`,`Country Name`, Region,IncomeGroup,Cases,Deaths,Population.x,vaccinations,`cases_after_vaccinations`,`deaths_after_vaccinations`)
+####Creating New variables###
+df<-df%>%
+  mutate(`Cases_rate`=Cases/Population.x,`Deaths_rate`=Deaths/Population.x,`Rate_of_vaccinated_people`=vaccinations/Population.x,`Rate_of_cases_after_vaccinations`=cases_after_vaccinations/Population.x ,`Rate_of_death_after_vaccinations`=deaths_after_vaccinations/Population.x)
+
+####
+
+```
+
+
+
+
+
+ 
+Introduction
+=====================
+
+
+
+Column {.sidebar data-width=650}
+-----------------------------------------------------------------------
+
+Appeared at the end of 2019, the coronas virus has affected several countries around the world. The pandemic has left deaths wherever it has put its suitcases. Leaving brothers, sisters, families, even whole countries in tears. However, thanks to the efforts of countries and governments, motivated by the urgency of the situation, a viccin was found.
+Since then, the countries most affected by the pandemic have been the first to launch vaccination campaigns in their respective countries, then other countries in the world have followed their example out of necessity or simply as a precaution.
+In this work, it is a question of verifying whether the vaccination campaigns have indeed borne fruit in all the countries of the world.
+it is about observing the evolution of the cases of covid-19 and the mortality rate in the countries before and after the vaccination campaigns
+
+
+*Select variables*
+```{r}
+selectInput("Covid",label = "Les criteres", 
+    choices =c("Cases_rate","Deaths_rate"), selected = "Cases _rate")
+```
+
+
+```{r}
+selectInput("Variables", label = "Varianbles to compare", 
+    choices =c("Rate_of_vaccinated_people","Rate_of_cases_after_vaccinations","Rate_of_death_after_vaccinations"), selected = "Rate_of_vaccinated_people"
+               )
+```
+
+
+```{r}
+selectInput("Groups", label = "Select region or level of wealth", 
+    choices =c("IncomeGroup","Region"), selected = "Region")
+```
+
+
+Row {data-height=350}
+----------------------------------
+```{r}
+renderPlot(
+  df%>%
+  ggplot(aes(x = get(input$Covid), y = get(input$Variables)))+
+ geom_point(aes(color = get(input$Groups)),size=5)+#
+  geom_smooth(method='lm',se=F,size=1.5)+
+  xlab(colnames(df[,input$Covid]))+ylab(input$Variables)+
+  ggtitle(paste("COVID-19",input$Covid,"compared to",input$Variables))+
+  theme_classic()+
+   theme(legend.position = "top",legend.title = element_blank())
+)
+```
+
+
+
+
+
+
+
+
+
+Interpretation of the most important graphics selected
+===================================================
+
+*Scatter plot comparing the rate of Covid-19 cases and death rate in countries.*
+The two graphs shown on this page compare the rate of covid-19 cases and the death rate in countries. The first makes the comparison according to the different regions of the world and the second according to the level of wealth of the countries. For both graphs the conclusion remains the same, the rate of covid cases -19 and the death rate are higher in the largest regions of the world and in the richest countries (high income level).
+
+`
+*Scatter plot comparing COVID-19 cases with the rate of covid-19 cases and vaccination rates in regions around the world*
+
+The two graphs shown on this page compare the rate of covid-19 cases and the death rate in countries. The first makes the comparison according to the different regions of the world and the second according to the level of wealth of the countries. For both graphs the conclusion remains the same, the rate of covid cases -19 and the death rate are higher in the largest regions of the world and in the richest countries (high income level).According to the previous charts, the case and death rate was higher in these countries.
+
+*Scatter plot comparing post-vaccination case rate and post-vaccination death rate in countries.raphic*
+
+This graphic answers the subject's original question: Have the vaccination campaigns been effective? By observing these graphs the answers become obvious. According to the data, the vaccination campaigns launched in the countries have indeed borne fruit because we are witnessing a drastic reduction in the rate of cases and the rate of death after vaccination.
+

@@ -1,0 +1,38 @@
+---
+title: "Ouverture commerciale et  croissance economique"
+author: "Jean philippe Rolls H D(JE170435) et Fevrius Marie Danielle(FE163703)"
+date: "30/04/2021"
+output: html_document
+---
+
+## 1 ) Identification du theme
+
+*Theme : Ouverture commerciale et croissance economique*
+
+2) Principale question de recherche
+
+Reponse : Quel est l'impact de l'ouverture commerciale sur la croissance economique? 
+
+3) Questions secondaires
+   
+   3.1 ) Quel est le lien qui existe entre ouverture commerciale et croissance economique? 
+   
+   3.2) Quel est la nature de ce lien? 
+   
+   3.3) Peut-on integrer l'ouverture commerciale dans un programme de developpement  ?
+   
+4) Graphiques et statisques
+
+   4.1) Nuages de points comparant le taux d'ouverture commerciale et la croissance
+   annuelle du PIB
+   
+   4.2) Tableau sur l'evolution du PIB annuel sur une periode de 10 ans 
+   
+5) Presentation des souces et de la liste des variable 
+```{r}
+variable<-c("FBFC","PIB","OC")
+Source<-c( "Banque Mondiale", "Fonds monetaire internationale", "Banque de la republique d'Haiti")
+tableau<-data.frame(variable,Source)
+print(tableau)
+```
+   

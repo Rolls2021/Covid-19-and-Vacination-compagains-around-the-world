@@ -1,0 +1,63 @@
+---
+title: "R Notebook"
+output: "html_notebook"
+Author: "Jean philippe Rolls H D(JE170435) et Fevrius Marie Danielle(FE163703)"
+---
+
+## 1 ) Identification du theme
+
+*Theme : Covid-19 and Vacination compagains around the world*
+
+2) Principale question de recherche
+
+Reponse : Quel est le niveau d'efficacite des vaccins dans les pays touches par la pandemie? 
+
+
+3) Questions secondaires
+   
+   3.1 ) Quel est le pourcentage des gens qui ont ete vaccine ?  
+   
+   3.2) Est ce que les cas du covid ont ete reduit apres les campagnes de vaccination? 
+   
+   3.3) Est-ce que les gens ont repris le trvail apres avoir ete vaccines ?
+   
+4) Graphiques et statisques
+
+    
+4.1) Nuage de points comparant le taux de cas de covid-19 et  taux de mortatalite dans les pays.
+
+   4.2)Nuage de points comparant les cas de COVID-19 avec le taux de cas de covid-19 et  taux de vaccinations dans les region du monde.
+   
+   4.3) Nuage de points comparant le taux de cas apres vaccination et le taux de  mortalite apres vaccination dans les pays.
+   
+   
+
+   
+5) Presentation des sources et de la liste des variable 
+les sources de donnees : OMS , Our world in data, Banque mondiale 
+Les variables : Nombre de cas de covid rencenses dans les pays( avant le lancement des campagnes de vaccination), taux de deces par pays (Avant les campagnes de vaccination) nombres de total de vaccination , Nombre de cas de covid dans les pays (apres le lancement des campagnes de vaccination),taux de deces par pays (Apres les campagnes de
+vaccination).
+
+
+
+
+
+
+
+
+
+
+
+
+#Graphics#1
+The two graphs shown on this page compare the rate of covid-19 cases and the death rate in countries. The first makes the comparison according to the different regions of the world and the second according to the level of wealth of the countries. For both graphs the conclusion remains the same, the rate of covid cases -19 and the death rate are higher in the largest regions of the world and in the richest countries (high income level).
+#Graphics#2
+*Presentation*
+
+
+The two graphs shown on this page compare the rate of covid-19 cases and the death rate in countries. The first makes the comparison according to the different regions of the world and the second according to the level of wealth of the countries. For both graphs the conclusion remains the same, the rate of covid cases -19 and the death rate are higher in the largest regions of the world and in the richest countries (high income level).According to the previous charts, the case and death rate was higher in these countries.
+
+#Grapgics #3
+*Presentation*
+
+This graphic answers the subject's original question: Have the vaccination campaigns been effective? By observing these graphs the answers become obvious. According to the data, the vaccination campaigns launched in the countries have indeed borne fruit because we are witnessing a drastic reduction in the rate of cases and the rate of death after vaccination.
